@@ -1,0 +1,14 @@
+# Environment variables & secrets
+.env
+*.env
+!.env.example
+
+# Local data volumes
+data/
+*.log
+
+# OS & Editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

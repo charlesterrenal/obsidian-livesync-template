@@ -1,0 +1,22 @@
+services:
+  couchdb:
+    image: couchdb:3.4.2
+    container_name: couchdb-livesync
+    restart: unless-stopped
+    ports:
+      - "${COUCHDB_PORT:-5984}:5984"
+    environment:
+      - COUCHDB_USER=${COUCHDB_USER:-admin}
+      - COUCHDB_PASSWORD=${COUCHDB_PASSWORD}
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+      - ./local.ini:/opt/couchdb/etc/local.d/local.ini:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5984/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  couchdb_data:
+    name: couchdb_livesync_data
